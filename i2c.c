@@ -122,6 +122,7 @@ inline void eeprom_wait_until_write_complete() {
 	while (status != 0x18){     //check if slave is sending ACK, if no ACK writing is in progress so wait
 		i2c_start();
 		i2c_xmit_addr(EEPROM_addr,0);
+		status = i2c_get_status();
 	}
 }
 
@@ -153,27 +154,30 @@ uint8_t eeprom_read_byte(uint8_t addr) {
 void eeprom_write_byte(uint8_t addr, uint8_t data) {
 	//Generate start condition
 	i2c_start();
-
-	i2c_meaningful_status(i2c_get_status());
+	//i2c_meaningful_status(i2c_get_status());
 
 	//Send SLA+ R/W (Address Pkt consisting of slave address and READ and WRITE bit)
 	i2c_xmit_addr(EEPROM_addr, 0);
-
-	i2c_meaningful_status(i2c_get_status());
+	//i2c_meaningful_status(i2c_get_status());
      
 	 //send the address to be written to
      i2c_xmit_byte(addr);
-	 i2c_meaningful_status(i2c_get_status());
+	// i2c_meaningful_status(i2c_get_status());
 
 	//Send/write just one byte
     i2c_xmit_byte(data);
-	i2c_meaningful_status(i2c_get_status());
+	//i2c_meaningful_status(i2c_get_status());
 
-    //Generate stop condition
+	//Generate stop condition
     i2c_stop();
 
 	//wait until write has finished
 	eeprom_wait_until_write_complete();
+	//i2c_meaningful_status(i2c_get_status());
+
+    
+
+	
 }
 
 
