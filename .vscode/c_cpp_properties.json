@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "AVR",
+            "includePath": [
+                "${workspaceFolder}/",
+                "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\include\\",
+                "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\avr\\include\\"
+            ],
+            "defines": [
+                "__AVR_ATmega328P__",
+                "__AVR_ATmega328__"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "cStandard": "c99",
+            "cppStandard": "c++11",
+            "intelliSenseMode": "gcc-x64",
+            "compilerPath": "C:\\Program Files (x86)\\Atmel\\Studio\\7.0\\toolchain\\avr8\\avr8-gnu-toolchain\\bin\\avr-gcc.exe",
+            "compilerArgs": [
+                "-mmcu=atmega328p"
+            ]
+        }
+    ],
+    "version": 4
+}
