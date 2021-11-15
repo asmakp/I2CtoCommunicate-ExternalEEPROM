@@ -260,9 +260,9 @@ void eeprom_sequential_read(uint8_t *buff, uint8_t Initial_addr, uint8_t len)
 
 		if (i == len - 1)
 		{
-			uint8_t unwanted = i2c_read_NAK();
+			chardata2 = i2c_read_NAK();
 			//uart_putchar(chardata2, 0);
-			//	buff[i] = chardata2;
+			buff[i] = chardata2;
 		}
 		else
 		{

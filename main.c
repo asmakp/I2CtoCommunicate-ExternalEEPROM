@@ -1,3 +1,5 @@
+//Asma Khalid Patel
+//IOT 2020
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #include <avr/pgmspace.h>
@@ -100,7 +102,6 @@ void main(void)
 	{
 		printf_P(PSTR("%X "), Read_string[i]);
 	}
-	
 
 	while (1)
 	{
