@@ -186,6 +186,7 @@ void eeprom_write_byte(uint8_t addr, uint8_t data)
 
 	//Send/write just one byte
 	i2c_xmit_byte(data);
+
 	//i2c_meaningful_status(i2c_get_status());
 
 	//Generate stop condition
@@ -217,7 +218,6 @@ void eeprom_write_page(uint8_t addr, uint8_t *data)
 		//Send/write just one byte
 		i2c_xmit_byte(chardata); //Upon receipt of each word, the 3 lower-order Address Pointer bits are internally incremented by ‘1’.
 		//The higher-order five bits of the word address remain constant.
-		//uart_putchar(chardata, 0);
 
 		chardata = *(++data); //PreIncrementing the pointer to next char
 

@@ -50,9 +50,11 @@ void main(void)
 	char name[] = "Asma";
 	uint8_t Initial_addr = 0x10;*/
 
+	//-------------------------------- VG DELUPPGIFT PART 1 AND 2------------------------------
+
 	//variables to write the data
 
-	uint8_t *array[] = {"Happy   ", "new     ", "year    "};
+	/*uint8_t *array[] = {"Happy   ", "new     ", "year    "};
 	uint8_t Initial_addr = 0x10;
 
 	uint8_t Pages = sizeof(array) / sizeof(array[0]);
@@ -68,17 +70,15 @@ void main(void)
 
 	for (int i = 0; i < Pages; i++) // NO of Pages = 7
 	{
-		//char *ch;
+		
 		uint8_t *ch;
 		ch = array[i];
 		eeprom_write_page(Initial_addr, ch);
 
-		//	printf_P(PSTR("%x\n"), Initial_addr);
-
-		Initial_addr += Pagesize; //pagesize = 8;
+		Initial_addr += Pagesize; // incrementing the page size ,pagesize = 8;
 	}
 
-	//printf_P(PSTR("\n readstring\n"));
+	
 
 	//variables to read the data
 	uint8_t Read_string[Str_len * Pages];
@@ -96,9 +96,57 @@ void main(void)
 		printf_P(PSTR("%c  "), Read_string[i]);
 	}
 
-	//To print the hexadecimal values of the chars pri nted above
+	//To print the hexadecimal values of the chars printed above
 	printf_P(PSTR("\n My HEX  string  \n"));
 	for (int i = 0; i < Size_of_array - 1; i++)
+	{
+		printf_P(PSTR("%X "), Read_string[i]);
+	}*/
+
+	//----------------------VG DELUPPGIFT PART 3 ---------------------------------------
+
+	uint8_t New_array[] = "Here i am studying IOT program";
+	uint8_t len_of_string = sizeof(New_array);
+	uint8_t No_of_pages = len_of_string / Pagesize;
+	uint8_t Initial_addr = 0x10;
+
+	printf_P(PSTR("size of new_array= %d\n"), sizeof(New_array));					// length is 31 as per the New_array declared above
+	printf_P(PSTR("excess char (out of boundry chars) = %d\n"), len_of_string % 8); // 7 excess chars
+	printf_P(PSTR("No of pages= %d\n"), No_of_pages);								//   31/8 = 3
+
+	uint8_t excess_char = len_of_string % 8; //gives the number of chars which are more than page size
+
+	for (int i = 0; i < No_of_pages; i++)
+	{
+		uint8_t *ch;
+		ch = &New_array[i * Pagesize]; //assigning the address to the pointer
+		eeprom_write_page(Initial_addr, ch);
+		Initial_addr += Pagesize;
+	}
+
+	for (int i = (len_of_string - excess_char); i < len_of_string; i++) // writing the out of boundary chars
+	{
+		eeprom_write_byte(Initial_addr, New_array[i]);
+		Initial_addr++;
+	}
+
+	//variables to read the data
+	uint8_t Read_string[len_of_string]; // array to read the chars
+
+	Initial_addr = 0x10; //re-initializing the start address
+
+	eeprom_sequential_read(Read_string, Initial_addr, len_of_string);
+
+	//To print the string the text
+	printf_P(PSTR("\n My string in  ASCII char \n"));
+	for (int i = 0; i < len_of_string - 1; i++)
+	{
+		printf_P(PSTR("%c  "), Read_string[i]);
+	}
+
+	//To print the hexadecimal values of the chars printed above
+	printf_P(PSTR("\n My HEX  string  \n"));
+	for (int i = 0; i < len_of_string - 1; i++)
 	{
 		printf_P(PSTR("%X "), Read_string[i]);
 	}
