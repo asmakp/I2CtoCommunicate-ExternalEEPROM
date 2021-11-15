@@ -2,10 +2,11 @@
 #define _I2C_H_
 
 // I2C Read/Write flags
-#define I2C_R	1
-#define I2C_W	0
+#define I2C_R 1
+#define I2C_W 0
 #define EEPROM_addr 0xa0
 
+#define Pagesize 8
 
 void i2c_init(void);
 
@@ -25,9 +26,10 @@ uint8_t i2c_read_NAK(void);
 void eeprom_wait_until_write_complete(void);
 
 uint8_t eeprom_read_byte(uint8_t addr);
-void eeprom_write_byte(uint8_t addr, uint8_t data);
 
 void eeprom_write_page(uint8_t addr, uint8_t *data);
+//void eeprom_write_page(uint8_t addr, uint8_t data);
 void eeprom_sequential_read(uint8_t *buf, uint8_t start_addr, uint8_t len);
+//uint8_t eeprom_sequential_read(uint8_t start_addr);
 
 #endif // _I2C_H_
